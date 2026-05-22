@@ -58,6 +58,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SetPath(EnemyPath newPath)
+    {
+        path = newPath;
+    }
+
 
 
 }
