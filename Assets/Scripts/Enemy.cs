@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,31 +10,49 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int currentWaypointIndex = 0;
 
+    NavMeshAgent agent;
+
     bool pathIsFinished;
+
+
 
     private void Start()
     {
+        //Fetch components
+        agent = GetComponent<NavMeshAgent>();
+
+        // Initial settings
         pathIsFinished = false;
+
+        //Enable agent
+        agent.enabled = true;
+
+        // Set initial destination
+        agent.SetDestination(path.GetWaypoint(currentWaypointIndex).position);
     }
 
     private void Update()
     {
-        if (!pathIsFinished)
+        // Keep navigating for as long as the path is NOT finished
+        if (!pathIsFinished && path != null)
         {
 
-            transform.position = Vector3.MoveTowards(
-                 transform.position,
-                 path.GetWaypoint(currentWaypointIndex).position,
-                 5f * Time.deltaTime
-                 );
-
-            if (Vector3.Distance(transform.position, path.GetWaypoint(currentWaypointIndex).position) < 0.1f)
+            // Only go further if the agent is ready
+            if (agent.hasPath && !agent.pathPending)
             {
-                currentWaypointIndex++;
-
-                if (currentWaypointIndex > path.GetNumberOfWaypoints() - 1)
+                // Are we there yet?
+                if (agent.remainingDistance < .5f)
                 {
-                    pathIsFinished = true;
+                    // Increment the current waypoint index
+                    currentWaypointIndex++;
+
+                    // Did we finish the path?
+                    if (currentWaypointIndex > path.GetNumberOfWaypoints() - 1)
+                    {
+                        pathIsFinished = true;
+                        return;
+                    }
+                    agent.SetDestination(path.GetWaypoint(currentWaypointIndex).position);
                 }
             }
         }
