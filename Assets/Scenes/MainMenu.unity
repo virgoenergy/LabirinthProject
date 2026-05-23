@@ -831,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ui_MenuManager
   newGameBtn: {fileID: 1417511065}
   settingBtn: {fileID: 1726895824}
+  exitSettingsBtn: {fileID: 513284735}
   mainMenuScreen: {fileID: 1387642048}
   settingsScreen: {fileID: 24599021}
   firstLevelScene: {fileID: 102900000, guid: 30b1d3ce741e4a74e9feb24bb341e457, type: 3}

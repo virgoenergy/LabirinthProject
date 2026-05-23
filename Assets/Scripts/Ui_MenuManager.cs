@@ -6,14 +6,16 @@ using UnityEngine.UI;
 
 public class Ui_MenuManager : MonoBehaviour
 {
-
+    [Header("Buttons")]
     [SerializeField] Button newGameBtn;
-
     [SerializeField] Button settingBtn;
+    [SerializeField] Button exitSettingsBtn;
 
+    [Header("Screens")]
     [SerializeField] GameObject mainMenuScreen;
     [SerializeField] GameObject settingsScreen;
 
+    [Header("Scenes")]
     [SerializeField] SceneAsset firstLevelScene;
 
 
@@ -24,6 +26,7 @@ public class Ui_MenuManager : MonoBehaviour
 
         newGameBtn.onClick.AddListener(() => LoadFirstScene());
         settingBtn.onClick.AddListener(() => OpenSettingsScreen());
+        exitSettingsBtn.onClick.AddListener(() => OpenMainMenu());
     }
 
     private void LoadFirstScene()
@@ -36,5 +39,11 @@ public class Ui_MenuManager : MonoBehaviour
     {
         mainMenuScreen.SetActive(false);
         settingsScreen.SetActive(true);
+    }
+
+    private void OpenMainMenu()
+    {
+        settingsScreen.SetActive(false);
+        mainMenuScreen.SetActive(true);
     }
 }
