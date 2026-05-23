@@ -4638,6 +4638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d99636c7457c7648814a790c8fd1520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyWave: {fileID: 11400000, guid: b0b7f0bff2d3b5049abd13c580de10ea, type: 2}
   basicEnemy: {fileID: 4074232549099100126, guid: a71eb6b7c922a3a46a2f3f4225ca48b8, type: 3}
   path: {fileID: 1567219416}
 --- !u!1 &1021836807

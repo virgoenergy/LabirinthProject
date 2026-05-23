@@ -1,8 +1,11 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+
+    [SerializeField] WaveEventSO enemyWave;
 
     [SerializeField] Enemy basicEnemy;
 
@@ -11,28 +14,41 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-       var spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
-        spawnedEnemy.SetPath(path);
+        //StartCoroutine(spawnEnemy());
 
-        spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
-        spawnedEnemy.SetPath(path);
-
-        spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
-        spawnedEnemy.SetPath(path);
-
-        spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
-        spawnedEnemy.SetPath(path);
-
-        spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
-        spawnedEnemy.SetPath(path);
+        StartCoroutine(ReleaseWave(enemyWave));
     }
 
 
-    private void Update()
+    IEnumerator ReleaseWave(WaveEventSO waveToRelease)
     {
-        
+        yield return new WaitForSeconds(2);
+
+        foreach(Enemy enemyToSpawn in waveToRelease.enemies)
+        {
+            var spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
+            spawnedEnemy.SetPath(path);
+
+            yield return new WaitForSeconds(2);
+        }
     }
 
+
+    IEnumerator spawnEnemy()
+    {
+
+        for (int i = 0; i < 10; i++)
+        {
+            var spawnedEnemy = Instantiate(basicEnemy, transform.position, Quaternion.identity);
+            spawnedEnemy.SetPath(path);
+
+            yield return new WaitForSeconds(2);
+        }
+        
+
+
+    }
+   
 
 
 }
